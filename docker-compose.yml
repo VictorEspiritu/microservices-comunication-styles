@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+    non_blocking:
+        image: microservices-for-everyone/communication_styles_base
+        build: docker/base/
+        volumes:
+            - ./:/opt
+        ports:
+            - 8080:80
+        command: php src/NonBlockingIO/web/index.php
+
+    circuit_breaker:
+        image: microservices-for-everyone/communication_styles_base
+        volumes:
+            - ./:/opt
+        ports:
+            - 8081:80
+        command: php -S 0.0.0.0:80 -t src/CircuitBreakerBlockingIO/web
+
+    flaky_service:
+        image: microservices-for-everyone/communication_styles_base
+        volumes:
+            - ./:/opt
+        ports:
+            - 8082:80
+        command: php -S 0.0.0.0:80 -t src/FlakyService/web
+
+    slow_service1:
+        image: microservices-for-everyone/communication_styles_base
+        volumes:
+            - ./:/opt
+        ports:
+            - 8083:80
+        command: php -S 0.0.0.0:80 -t src/SlowService/web
+
+    slow_service2:
+        image: microservices-for-everyone/communication_styles_base
+        volumes:
+            - ./:/opt
+        ports:
+            - 8084:80
+        command: php -S 0.0.0.0:80 -t src/SlowService/web
