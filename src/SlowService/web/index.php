@@ -12,4 +12,3 @@ Sleep::millisecondsBetween(500, 800);
 $durationInMs = Stopwatch::stop();
 
 echo "It took me {$durationInMs}ms to respond";
-exit;

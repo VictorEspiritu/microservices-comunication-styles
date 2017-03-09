@@ -17,13 +17,6 @@ $eventLoop = Factory::create();
 // Use Docker's embedded DNS server
 $httpClient = new Browser($eventLoop, Sender::createFromLoopDns($eventLoop, '127.0.0.11'));
 
-// Prepare a Response for the current request
-$response = new Response(
-    'php://memory',
-    200,
-    ['Content-Type' => 'text/plain']
-);
-
 // Create promises for the HTTP requests we're going to make
 $promises = [
     $httpClient->get('http://slow_service1/'),
@@ -32,6 +25,13 @@ $promises = [
 
 // Wait for all of the promises to resolve
 $allResults = awaitAll($promises, $eventLoop);
+
+// Prepare a Response for the current request
+$response = new Response(
+    'php://memory',
+    200,
+    ['Content-Type' => 'text/plain']
+);
 
 // Use the remote responses to create our own response
 foreach ($allResults as $index => $result) {
@@ -44,7 +44,7 @@ foreach ($allResults as $index => $result) {
 }
 
 $response->getBody()->write(sprintf(
-    "Total response time: %d\n",
+    "Total response time: %dms\n",
     Stopwatch::stop()
 ));
 

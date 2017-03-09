@@ -3,33 +3,28 @@ declare(strict_types = 1);
 
 namespace Common;
 
-final class Stopwatch
+final class StatelessStopwatch
 {
-    private static $startTime;
-
     /**
      * Start the stopwatch
+     *
+     * @return float The time when the stopwatch started
      */
-    public static function start(): void
+    public static function start(): float
     {
-        self::$startTime = self::currentTime();
+        return self::currentTime();
     }
 
     /**
      * Stop the stopwatch
      *
+     * @param float $startTime The time when the stopwatch started
      * @return int The number of milliseconds that has passed since the stopwatch was started
      */
-    public static function stop(): int
+    public static function stop(float $startTime): int
     {
-        if (self::$startTime === null) {
-            throw new \LogicException('You have to start the stopwatch first');
-        }
-
-        $microsecondsPassed = self::currentTime() - self::$startTime;
+        $microsecondsPassed = self::currentTime() - $startTime;
         $millisecondsPassed = (int)round($microsecondsPassed * 1000);
-
-        self::$startTime = null;
 
         return $millisecondsPassed;
     }

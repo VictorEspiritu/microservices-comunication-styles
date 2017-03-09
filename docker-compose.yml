@@ -12,7 +12,6 @@ services:
 
     mixed_blocking_io:
         image: microservices-for-everyone/communication_styles_base
-        build: docker/base/
         volumes:
             - ./:/opt
         ports:
@@ -21,7 +20,6 @@ services:
 
     non_blocking_io:
         image: microservices-for-everyone/communication_styles_base
-        build: docker/base/
         volumes:
             - ./:/opt
         ports:
@@ -44,12 +42,20 @@ services:
             - 8084:80
         command: php -S 0.0.0.0:80 -t src/FlakyService/web
 
+    lb:
+        image: dockercloud/haproxy
+        links:
+            - slow_service1
+            - slow_service2
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+
     slow_service1:
         image: microservices-for-everyone/communication_styles_base
         volumes:
             - ./:/opt
         ports:
-            - 8085:80
+            - 80
         command: php -S 0.0.0.0:80 -t src/SlowService/web
 
     slow_service2:
@@ -57,5 +63,5 @@ services:
         volumes:
             - ./:/opt
         ports:
-            - 8086:80
+            - 80
         command: php -S 0.0.0.0:80 -t src/SlowService/web

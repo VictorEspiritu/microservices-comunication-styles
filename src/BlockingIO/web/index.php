@@ -10,7 +10,12 @@ require __DIR__ . '/../../../vendor/autoload.php';
 
 Stopwatch::start();
 
+// Make some HTTP requests
 $httpClient = new Client();
+$allResults = [
+    $httpClient->get('http://slow_service1/'),
+    $httpClient->get('http://slow_service2/')
+];
 
 // Prepare a Response for the current request
 $response = new Response(
@@ -18,12 +23,6 @@ $response = new Response(
     200,
     ['Content-Type' => 'text/plain']
 );
-
-// Make some HTTP requests
-$allResults = [
-    $httpClient->get('http://slow_service1/'),
-    $httpClient->get('http://slow_service2/')
-];
 
 // Use the remote responses to create our own response
 foreach ($allResults as $index => $result) {
@@ -36,7 +35,7 @@ foreach ($allResults as $index => $result) {
 }
 
 $response->getBody()->write(sprintf(
-    "Total response time: %d\n",
+    "Total response time: %dms\n",
     Stopwatch::stop()
 ));
 
