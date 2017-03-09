@@ -7,11 +7,19 @@ final class Stopwatch
 {
     private static $startTime;
 
-    public static function start()
+    /**
+     * Start the stopwatch
+     */
+    public static function start(): void
     {
         self::$startTime = self::currentTime();
     }
 
+    /**
+     * Stop the stopwatch
+     *
+     * @return int The number of milliseconds that has passed since the stopwatch was started
+     */
     public static function stop(): int
     {
         if (self::$startTime === null) {
@@ -25,7 +33,7 @@ final class Stopwatch
         return $elapsedTimeInMs;
     }
 
-    private static function currentTime()
+    private static function currentTime(): float
     {
         return microtime(true);
     }
