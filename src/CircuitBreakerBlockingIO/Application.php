@@ -30,7 +30,7 @@ final class Application
                     // How many requests we need minimally before we can start making decisions about service stability
                     'requestVolumeThreshold' => 1,
                     // For how long to wait before attempting to access a failing service
-                    'sleepWindowInMilliseconds' => 10000,
+                    'sleepWindowInMilliseconds' => 3000,
                 ],
                 'metrics' => [
                     'healthSnapshotIntervalInMilliseconds' => 1000,

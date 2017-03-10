@@ -65,3 +65,21 @@ services:
         ports:
             - 80
         command: php -S 0.0.0.0:80 -t src/SlowService/web
+
+    rabbitmq:
+        image: rabbitmq:3-management
+        ports:
+            # management UI:
+            - 15672:15672
+
+    asynchronous_producer:
+        image: microservices-for-everyone/communication_styles_base
+        volumes:
+            - ./:/opt
+        command: php src/Asynchronous/produce.php
+
+    asynchronous_consumer:
+        image: microservices-for-everyone/communication_styles_base
+        volumes:
+            - ./:/opt
+        command: php src/Asynchronous/consume.php
