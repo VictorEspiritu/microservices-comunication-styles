@@ -76,10 +76,10 @@ services:
         image: microservices-for-everyone/communication_styles_base
         volumes:
             - ./:/opt
-        command: php src/Asynchronous/produce.php
+        command: php src/Asynchronous/producer.php
 
     asynchronous_consumer:
         image: microservices-for-everyone/communication_styles_base
         volumes:
             - ./:/opt
-        command: php src/Asynchronous/consume.php
+        command: php src/Asynchronous/consumer.php
