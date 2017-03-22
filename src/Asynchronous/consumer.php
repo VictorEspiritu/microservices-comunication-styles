@@ -14,7 +14,7 @@ $channel->queueBind('all_events', 'events');
 
 $channel->run(
     function (Message $message, Channel $channel) {
-        echo 'Handling message: ' . $message->content;
+        echo 'Handling message: ' . $message->content . "\n";
 
         $channel->ack($message); // Acknowledge message
     },

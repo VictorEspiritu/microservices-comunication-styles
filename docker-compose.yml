@@ -77,9 +77,13 @@ services:
         volumes:
             - ./:/opt
         command: php src/Asynchronous/producer.php
+        depends_on:
+            - rabbitmq
 
     asynchronous_consumer:
         image: microservices-for-everyone/communication_styles_base
         volumes:
             - ./:/opt
         command: php src/Asynchronous/consumer.php
+        depends_on:
+            - rabbitmq
