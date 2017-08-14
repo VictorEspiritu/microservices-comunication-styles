@@ -2,7 +2,7 @@ version: '3'
 
 services:
     blocking_io:
-        image: microservices-for-everyone/communication_styles_base
+        image: microservicesforeveryone/communication_styles_base
         build: docker/base/
         volumes:
             - ./:/opt
@@ -11,7 +11,7 @@ services:
         command: php -S 0.0.0.0:80 -t src/BlockingIO/web
 
     mixed_blocking_io:
-        image: microservices-for-everyone/communication_styles_base
+        image: microservicesforeveryone/communication_styles_base
         volumes:
             - ./:/opt
         ports:
@@ -19,7 +19,7 @@ services:
         command: php -S 0.0.0.0:80 -t src/MixedBlockingIO/web
 
     non_blocking_io:
-        image: microservices-for-everyone/communication_styles_base
+        image: microservicesforeveryone/communication_styles_base
         volumes:
             - ./:/opt
         ports:
@@ -27,7 +27,7 @@ services:
         command: php src/NonBlockingIO/web/index.php
 
     circuit_breaker:
-        image: microservices-for-everyone/communication_styles_base
+        image: microservicesforeveryone/communication_styles_base
         volumes:
             - ./:/opt
         ports:
@@ -35,7 +35,7 @@ services:
         command: php -S 0.0.0.0:80 -t src/CircuitBreakerBlockingIO/web
 
     flaky_service:
-        image: microservices-for-everyone/communication_styles_base
+        image: microservicesforeveryone/communication_styles_base
         volumes:
             - ./:/opt
         ports:
@@ -51,7 +51,7 @@ services:
             - /var/run/docker.sock:/var/run/docker.sock
 
     slow_service1:
-        image: microservices-for-everyone/communication_styles_base
+        image: microservicesforeveryone/communication_styles_base
         volumes:
             - ./:/opt
         ports:
@@ -59,7 +59,7 @@ services:
         command: php -S 0.0.0.0:80 -t src/SlowService/web
 
     slow_service2:
-        image: microservices-for-everyone/communication_styles_base
+        image: microservicesforeveryone/communication_styles_base
         volumes:
             - ./:/opt
         ports:
@@ -73,7 +73,7 @@ services:
             - 15672:15672
 
     asynchronous_producer:
-        image: microservices-for-everyone/communication_styles_base
+        image: microservicesforeveryone/communication_styles_base
         volumes:
             - ./:/opt
         command: php src/Asynchronous/producer.php
@@ -81,7 +81,7 @@ services:
             - rabbitmq
 
     asynchronous_consumer:
-        image: microservices-for-everyone/communication_styles_base
+        image: microservicesforeveryone/communication_styles_base
         volumes:
             - ./:/opt
         command: php src/Asynchronous/consumer.php
